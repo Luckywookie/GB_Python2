@@ -2,9 +2,12 @@ import hashlib
 import csv
 
 
-with open('./homework/need_hashes.csv', 'r', newline='') as csvfile:
+PATH_IN = 'need_hashes.csv'
+PATH_OUT = 'output.csv'
+
+
+with open(PATH_IN, 'r', newline='') as csvfile, open(PATH_OUT, 'w') as output_file:
     csv_reader = csv.reader(csvfile, delimiter=';', quotechar='|')
-    output_file = open('output.csv', 'w')
     writer = csv.writer(output_file, delimiter=';', quotechar='|')
     for row in csv_reader:
         func = row[1]

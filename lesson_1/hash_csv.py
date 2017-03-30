@@ -15,6 +15,8 @@ with open('./homework/need_hashes.csv', 'r', newline='') as csvfile:
             t = hashlib.md5(s).hexdigest()
         elif func == 'sha512':
             t = hashlib.sha512(s).hexdigest()
+        else:
+            t = ''
         writer.writerow(row[:-1] + [t])
 
 

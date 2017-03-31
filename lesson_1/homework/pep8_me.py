@@ -8,20 +8,24 @@ def create_file(namef, dir, size):
             s1 = size.split('KB')
             size1 = int(s1[0]) * 1024
             token = ''.join(
-                random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(size1))
+                random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits)
+                for x in range(size1))
         if size.endswith('MB'):
             s1 = size.split('MB')
             size1 = int(s1[0]) * 1048567
             token = ''.join(
-                random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(size1))
+                random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits)
+                for x in range(size1))
         if size.endswith('GB'):
             s1 = size.split('GB')
             size1 = int(s1[0]) * 1073741824
             token = ''.join(
-                random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(size1))
+                random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits)
+                for x in range(size1))
     else:
         token = ''.join(
-            random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for x in range(int(size)))
+            random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits)
+            for x in range(int(size)))
 
     file = open(dir + namef, "w")
     file.write(token)

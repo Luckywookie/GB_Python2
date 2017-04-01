@@ -9,14 +9,7 @@ PATH_OUT = 'output.csv'
 
 def hash_str(stroka, method):
     stroka = stroka.encode(encoding='utf-8')
-    if method == 'sha1':
-        res = hashlib.sha1(stroka).hexdigest()
-    elif method == 'md5':
-        res = hashlib.md5(stroka).hexdigest()
-    elif method == 'sha512':
-        res = hashlib.sha512(stroka).hexdigest()
-    else:
-        res = ''
+    res = hashlib.new(method, stroka).hexdigest()
     return res
 
 

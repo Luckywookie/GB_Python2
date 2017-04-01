@@ -1,5 +1,7 @@
+import os
 import random
 import hashlib
+from work_file_md5 import func_hex_file
 
 
 def hash_str(stroka, method):
@@ -22,5 +24,20 @@ def break_file(orig_file, size_piece, directory):
         return count
 
 
-print(break_file('file1/all_files.jpg', 100000, 'file3'))
+# break_file('file1/all_files.jpg', 100000, 'file3')
+
+
+def hash_dir(path, out_file):
+    # Create dictionary of key=hex and value=file
+        file_list = os.listdir(path)
+        n = 0
+        for fil in file_list:
+            if fil == 'parts.md5':
+                continue
+            hes = func_hex_file(path + '/', fil)
+            open(path + out_file, 'a').write(hes + '\n')
+            n += 1
+        return n
+
+# hash_dir('file3/', 'ffff.md5')
 

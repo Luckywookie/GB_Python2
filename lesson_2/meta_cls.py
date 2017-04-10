@@ -6,21 +6,19 @@
 
 
 # Объявляем метакласс, который будет контролировать создание нового класса
-class NewMeta(type):
+class Journal(type):
     def __init__(cls, name, base, attr_dict):
         setattr(cls, name.capitalize(), [])
         super().__init__(cls, name, base)
 
 
-class ToYou(metaclass=NewMeta):
+class BlackPirate(metaclass=Journal):
     def __init__(self, _id):
         if type(_id) and len(_id) == 13:
             self.id = _id
 
-# print(Fooo.__name__)
+me = BlackPirate('1234567890123')
 
-me = ToYou('1234567890123')
-
-print(me.Toyou)
+print(me.Blackpirate)
 print(me.id)
 print(dir(me))

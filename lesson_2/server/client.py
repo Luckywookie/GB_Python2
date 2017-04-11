@@ -17,12 +17,17 @@ now = datetime.now()
 
 _date = hex(((now.year - 2000 << 9) | (now.month << 5) | (now.day & 31)) & 0xFFFFF).encode('utf-8')
 _time = hex((now.hour << 12) | (now.minute << 6) | (now.second & 60)).encode('utf-8')
-_type = '0x00'.encode()
+_type = '0x01'.encode()
 _command = '0x00'.encode()
 _id_terminal = 123456
 _id_tranz = 123789
+_id_company = 2563        # id организации
+_payment = 1526500        # сумма в копейках
+_id_inkass = 253          # id сотрудника-инкассатора
+_cash = 285332200         # сумма инкассации в копейках
 
-p = pack('2s6s6s4s4sii', b'zz', _date, _time, _type, _command, _id_terminal, _id_tranz)
+
+p = pack('2s6s6s4s4s4i', b'zz', _date, _time, _type, _command, _id_terminal, _id_tranz, _id_company, _payment)
 print(p)
 sock.sendall(p)
 recvd = str(sock.recv(1024), 'utf-8')

@@ -15,6 +15,8 @@ class PaymentModel(Base):
         self.datetime = datetime
         self.terminal_id = terminal_id
         self.transaction_id = transaction_id
+        self.partner_id = partner_id
+        self.summ = summ
 
     @classmethod
     def find_by_terminal(cls, terminal_id):

@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String
 from db import Base
+from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String
 
 
 class TerminalModel(Base):
@@ -10,9 +11,9 @@ class TerminalModel(Base):
     pub_key = Column(String)
     comment = Column(String)
 
-    # Credit = Base.relationship('CreditModel')
+    terminal_payment = relationship("PaymentModel", lazy='dynamic')
 
-    def __init__(self, configuration, title, pub_key, comment=None):
+    def __init__(self, configuration, title, pub_key=None, comment=None):
         self.configuration = configuration
         self.title = title
         self.pub_key = pub_key

@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String
 from db import Base
+from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String
 
 
 class PartnerModel(Base):
@@ -7,6 +8,8 @@ class PartnerModel(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     title = Column(String)
     comment = Column(String)
+
+    partner_payment = relationship("PaymentModel", lazy='dynamic')
 
     def __init__(self, title, comment=None):
         self.title = title

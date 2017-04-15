@@ -18,18 +18,11 @@ class PaymentModel(Base):
         self.partner_id = partner_id
         self.summ = summ
 
-    @classmethod
-    def find_by_terminal(cls, terminal_id):
-        return cls.query.filter_by(terminal_id=terminal_id).first()
+    def json(self):
+        return {
+            'id': self.id,
+            'datetime': self.datetime,
+            'terminal_id': self.terminal_id
+        }
 
-    @classmethod
-    def find_by_partner(cls, partner_id):
-        return cls.query.filter_by(partner_id=partner_id).first()
 
-    def save_to_db(self):
-        Base.add(self)
-        Base.commit()
-
-    def delete_from_db(self):
-        Base.delete(self)
-        Base.commit()

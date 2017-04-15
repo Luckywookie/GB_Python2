@@ -29,7 +29,6 @@ class TCPHandler(socketserver.BaseRequestHandler):
         elif p[3] == b'0x02':
             print('Инкассация')
 
-
     def finish(self):
         pass
 

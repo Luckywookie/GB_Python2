@@ -9,16 +9,8 @@ from select_data import search_date, search_partner_trans
 
 from db import Base
 
-# metadata = MetaData()
-
 engine = create_engine('sqlite:///data.db', echo=True)
-
-# conn = engine.connect()
-# trans = conn.begin()
-
 Base.metadata.create_all(engine)
-
-# print(Base.metadata.tables.items())
 
 Sess = sessionmaker(bind=engine)
 session = Sess()

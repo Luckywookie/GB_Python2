@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, DateTime, ForeignKey
 from db import Base
+from datetime import datetime, date
 
 
 class PaymentModel(Base):
@@ -24,5 +25,8 @@ class PaymentModel(Base):
             'datetime': self.datetm,
             'terminal_id': self.terminal_id
         }
+
+    def __repr__(self):
+        return "<Payment {}, Data {}, PartnerID {}, Cash {} руб>".format(self.id, self.datetm, self.partner_id, self.summ)
 
 

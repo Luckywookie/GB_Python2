@@ -5,6 +5,7 @@ import os
 
 from tkinter import *
 
+
 class ManageButtons(Frame):
     ''' Класс-контейнер для кнопок "Создать, Изменить, Удалить и т.д."
     '''
@@ -88,14 +89,12 @@ class TableGrid(Frame):
         # происходит, когда виджет меняет свой размер или местоположение.
         self.frame.bind("<Configure>", lambda e: self._scroll())        
 
-
     def _scroll(self):
         """
             Перерисовка канвы и области прокрутки
         """
         self.canvas.config(scrollregion=self.canvas.bbox("all"))
         self.canvas.config(width=self.w, height=self.h)
-
 
     def rebuild(self, rows=0, columns=0):
         ''' 
@@ -118,7 +117,6 @@ class TableGrid(Frame):
 
                 # Все ячейки тоже "запомним" внутри нашего виджета (чтобы можно было их удалять)
                 self.cells.append(cell)
-        
 
     def update_data(self, data_func):
         """ Заполнение таблицы данными.

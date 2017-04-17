@@ -19,4 +19,7 @@ class TerminalModel(Base):
         self.pub_key = pub_key
         self.comment = comment
 
+    def __repr__(self):
+        return "<Terminal {}>".format(self.title)
+
 

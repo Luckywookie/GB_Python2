@@ -2,8 +2,6 @@ from datetime import datetime, date
 from tkinter import *
 from tkinter.messagebox import *
 from models.payments import PaymentModel
-from select_data import search_date, search_partner_trans
-from run_db import session
 
 
 class TableGrid(Frame):
@@ -27,7 +25,7 @@ class TableGrid(Frame):
         self.rebuild(len(titles), rows)
 
         # Размещаем текущий объект self в родительском виджете parent
-        self.pack()
+        self.grid(columnspan=5)
 
     def _create_scroll(self):
         ''' Обёртка для создания прокрутки внутри Frame.
@@ -108,25 +106,33 @@ main_window.resizable(width=True, height=True)
 main_window.title('Звёздный администратор')
 # main_window.iconbitmap('favicon.ico')
 
-main_menu = Menu(main_window)
-file_menu = Menu(main_menu)
+frame = Frame(main_window)
 
-grid = TableGrid(main_window, ('id', 'Sum'), 2, w=400)
+s = TableGrid(main_window, ('ID', 'Date', 'Sum'), 3, w=400)
 
-file_menu.add_command(label='Terminals',
-                      command=lambda g=grid:
-                      g.update_data(search_partner_trans(session, PaymentModel, date(2011, 3, 5), date(2019, 3, 5))))
-# file_menu.add_command(label='Transactions', command=func)
-# file_menu.add_command(label='Partners', command=func)
 
-main_menu.add_cascade(label='Data Bases', menu=file_menu)
+def select_partners(event):    # Функция для кнопки 'event' обязательный параметр
+    s.update_data(PaymentModel.find_by_dates(date(int(entry1.get()), int(entry2.get()), int(entry3.get())), date(2019, 3, 5)))
 
-main_window.config(menu=main_menu)
 
-# btn1 = Button(main_window, text='Button1', command=func)
-# btn2 = Button(main_window, text='Button2', command=func)
-# btn1.grid(column=5, row=3)
-# btn2.grid(column=3, row=6)
+lable1 = Label(main_window, text='Year', height=1, bg='yellow')
+lable1.grid(row=0, column=0, rowspan=1)
+lable2 = Label(main_window, text='Month', bg='yellow')
+lable2.grid(row=0, column=1, rowspan=1)
+lable3 = Label(main_window, text='Day', bg='yellow')
+lable3.grid(row=0, column=2, rowspan=1)
+
+entry1 = Entry(main_window)
+entry1.grid(row=1, column=0)
+entry2 = Entry(main_window)
+entry2.grid(row=1, column=1)
+entry3 = Entry(main_window)
+entry3.grid(row=1, column=2)
+
+btn = Button(main_window, text='View')
+btn.grid(row=1, column=3)   # Отображаем кнопку
+btn.bind('<Button-1>', select_partners)
+
 
 
 mainloop()

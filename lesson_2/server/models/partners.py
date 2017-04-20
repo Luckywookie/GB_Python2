@@ -29,3 +29,25 @@ class PartnerModel(Base):
     def save_to_db(self):
         session.add(self)
         session.commit()
+
+    @classmethod
+    def delete_partner(cls, _id):
+        find_partner = session.query(PartnerModel).filter(PartnerModel.id == _id)
+        exist_partner = find_partner.first()
+        if exist_partner:
+            find_partner.delete()
+            session.commit()
+            print("Element deleted")
+        else:
+            print("Bad request")
+
+    @classmethod
+    def update_partner(cls, _id, new_title, new_comment):
+        find_partner = session.query(PartnerModel).filter(PartnerModel.id == _id)
+        exist_partner = find_partner.first()
+        if exist_partner:
+            find_partner.update({'title': new_title, 'comment': new_comment})
+            session.commit()
+            print("<Partner: {}, comment: {}>".format(new_title, new_comment))
+        else:
+            print("Bad request")

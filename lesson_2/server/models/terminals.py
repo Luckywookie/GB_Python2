@@ -1,4 +1,4 @@
-from db import Base
+from db import Base, session
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String
 
@@ -22,4 +22,19 @@ class TerminalModel(Base):
     def __repr__(self):
         return "<Terminal {}>".format(self.title)
 
+    @classmethod
+    def find_by_id(cls, _id):
+        return session.query(TerminalModel.id, TerminalModel.title).filter(TerminalModel.id == _id).first()
+
+    @classmethod
+    def find_by_title(cls, search_title):
+        return session.query(TerminalModel.id, TerminalModel.title).filter(TerminalModel.title == search_title).first()
+
+    @classmethod
+    def find_by_pub_key(cls, search_pub_key):
+        return session.query(TerminalModel.id, TerminalModel.title).filter(TerminalModel.pub_key == search_pub_key).first()
+
+    def save_to_db(self):
+        session.add(self)
+        session.commit()
 

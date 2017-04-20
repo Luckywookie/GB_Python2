@@ -27,6 +27,10 @@ class TerminalModel(Base):
         return session.query(TerminalModel.id, TerminalModel.title).filter(TerminalModel.id == _id).first()
 
     @classmethod
+    def find_all(cls):
+        return session.query(TerminalModel.id, TerminalModel.title).all()
+
+    @classmethod
     def find_by_title(cls, search_title):
         return session.query(TerminalModel.id, TerminalModel.title).filter(TerminalModel.title == search_title).first()
 

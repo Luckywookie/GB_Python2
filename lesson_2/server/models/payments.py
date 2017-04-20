@@ -34,6 +34,10 @@ class PaymentModel(Base):
         return session.query(PaymentModel.id, PaymentModel.title).filter(PaymentModel.id == _id).first()
 
     @classmethod
+    def find_all(cls):
+        return session.query(PaymentModel.id, PaymentModel.datetm, PaymentModel.terminal_id, PaymentModel.transaction_id).all()
+
+    @classmethod
     def find_by_terminal_id(cls, search_terminal):
         return session.query(PaymentModel.transaction_id, PaymentModel.title).\
             filter(PaymentModel.terminal_id == search_terminal).first()

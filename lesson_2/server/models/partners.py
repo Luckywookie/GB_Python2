@@ -23,6 +23,10 @@ class PartnerModel(Base):
         return session.query(PartnerModel.id, PartnerModel.title).filter(PartnerModel.id == _id).first()
 
     @classmethod
+    def find_all(cls):
+        return session.query(PartnerModel.id, PartnerModel.title).all()
+
+    @classmethod
     def find_by_title(cls, search_title):
         return session.query(PartnerModel.id, PartnerModel.title).filter(PartnerModel.title == search_title).first()
 

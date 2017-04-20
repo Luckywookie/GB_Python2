@@ -22,6 +22,6 @@ class PartnerModel(Base):
     def find_by_id(cls, _id):
         return session.query(PartnerModel.title).filter(PartnerModel.id == _id).first()
 
-    def save_to_db(self, session):
+    def save_to_db(self):
         session.add(self)
         session.commit()

@@ -45,7 +45,7 @@ class PaymentModel(Base):
     # поиск транвакций в диапазоне дат
     @classmethod
     def find_by_dates(cls, start_date, end_date):
-        return session.query(PaymentModel.id, PaymentModel.datetm).\
+        return session.query(PaymentModel.id, PaymentModel.datetm, PaymentModel.summ).\
             filter(PaymentModel.datetm.between(start_date, end_date)).all()
 
     # поиск в диапазоне дат партнеров, которым должны денег

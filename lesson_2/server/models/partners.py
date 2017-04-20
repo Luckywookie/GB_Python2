@@ -20,7 +20,11 @@ class PartnerModel(Base):
 
     @classmethod
     def find_by_id(cls, _id):
-        return session.query(PartnerModel.title).filter(PartnerModel.id == _id).first()
+        return session.query(PartnerModel.id, PartnerModel.title).filter(PartnerModel.id == _id).first()
+
+    @classmethod
+    def find_by_title(cls, search_title):
+        return session.query(PartnerModel.id, PartnerModel.title).filter(PartnerModel.title == search_title).first()
 
     def save_to_db(self):
         session.add(self)

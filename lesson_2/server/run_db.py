@@ -9,13 +9,12 @@ from select_data import search_date, search_partner_trans
 
 from db import Base, session
 
-# engine = create_engine('sqlite:///data.db', echo=True)
-# Base.metadata.create_all(engine)
-#
-# Sess = sessionmaker(bind=engine)
-# session = Sess()
+# print(PartnerModel.find_by_id(1))
 
-print(PartnerModel.find_by_id(1))
+partner = PartnerModel(title='Ogogo OOO')
+partner.save_to_db()
+
+print(PartnerModel.find_by_title('Ogogo OOO'))
 
 # поиск транвакций в диапазоне дат
 # print(search_date(session, PaymentModel, date(2011, 3, 5), date(2019, 3, 5)))

@@ -1,4 +1,4 @@
-from db import Base
+from db import Base, session
 from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String
 
@@ -20,8 +20,8 @@ class PartnerModel(Base):
 
     @classmethod
     def find_by_id(cls, _id):
-        return cls.query(PartnerModel).filter_by(id=_id).first()
-    #
-    # def save_to_db(self, session):
-    #     session.add(self)
-    #     session.commit()
+        return session.query(PartnerModel.title).filter(PartnerModel.id == _id).first()
+
+    def save_to_db(self, session):
+        session.add(self)
+        session.commit()

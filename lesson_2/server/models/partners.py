@@ -18,8 +18,9 @@ class PartnerModel(Base):
     def __repr__(self):
         return "<Partner {}>".format(self.title)
 
-    # def find_by_id(self, query, _id):
-    #     return query.filter_by(id=_id).first()
+    @classmethod
+    def find_by_id(cls, _id):
+        return cls.query(PartnerModel).filter_by(id=_id).first()
     #
     # def save_to_db(self, session):
     #     session.add(self)

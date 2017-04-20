@@ -7,19 +7,21 @@ from models.terminals import TerminalModel
 from models.balans import CreditModel, DebitModel
 from select_data import search_date, search_partner_trans
 
-from db import Base
+from db import Base, session
 
-engine = create_engine('sqlite:///data.db', echo=True)
-Base.metadata.create_all(engine)
+# engine = create_engine('sqlite:///data.db', echo=True)
+# Base.metadata.create_all(engine)
+#
+# Sess = sessionmaker(bind=engine)
+# session = Sess()
 
-Sess = sessionmaker(bind=engine)
-session = Sess()
+print(PartnerModel.find_by_id(1))
 
 # поиск транвакций в диапазоне дат
-print(search_date(session, PaymentModel, date(2011, 3, 5), date(2019, 3, 5)))
+# print(search_date(session, PaymentModel, date(2011, 3, 5), date(2019, 3, 5)))
 
 # поиск в диапазоне дат партнеров, которым должны денег
-print(search_partner_trans(session, PaymentModel, date(2011, 3, 5), date(2019, 3, 5)))
+# print(search_partner_trans(session, PaymentModel, date(2011, 3, 5), date(2019, 3, 5)))
 
 # join
 # print(session.query(PaymentModel, PartnerModel).join(PartnerModel, PaymentModel.partner_id == PartnerModel.id).all())

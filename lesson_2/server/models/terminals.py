@@ -43,7 +43,7 @@ class TerminalModel(Base):
         session.commit()
 
     @classmethod
-    def delete_partner(cls, _id):
+    def delete_terminal(cls, _id):
         find_terminal = session.query(TerminalModel).filter(TerminalModel.id == _id)
         exist_terminal = find_terminal.first()
         if exist_terminal:
@@ -54,7 +54,7 @@ class TerminalModel(Base):
             print("Bad request")
 
     @classmethod
-    def update_partner(cls, _id, new_title):
+    def update_terminal(cls, _id, new_title):
         find_terminal = session.query(TerminalModel).filter(TerminalModel.id == _id)
         exist_terminal = find_terminal.first()
         if exist_terminal:

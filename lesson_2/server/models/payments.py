@@ -35,7 +35,12 @@ class PaymentModel(Base):
 
     @classmethod
     def find_all(cls):
-        return session.query(PaymentModel.id, PaymentModel.datetm, PaymentModel.terminal_id, PaymentModel.transaction_id).all()
+        return session.query(PaymentModel.id,
+                             PaymentModel.datetm,
+                             PaymentModel.terminal_id,
+                             PaymentModel.transaction_id,
+                             PaymentModel.partner_id,
+                             PaymentModel.summ).all()
 
     @classmethod
     def find_by_terminal_id(cls, search_terminal):

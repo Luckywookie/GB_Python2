@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from .gui_test import Ui_MainWindow
+from .gui_base_tabs import Ui_MainWindow
 from models.partners import PartnerModel
+from models.payments import PaymentModel
+from models.terminals import TerminalModel
 
 
 class MainWinMy(QtWidgets.QMainWindow):
@@ -16,13 +18,25 @@ class MainWinMy(QtWidgets.QMainWindow):
         return self.ui.spinBoxPartners.value()
 
     def fill_sql_table(self, n):
-        all_partners = PartnerModel.find_all()
-        if n > len(all_partners):
-            n = len(all_partners) - 1
-        self.ui.tableWidget.setRowCount(n)
+        current_tab = self.ui.tabWidgetAlls.currentIndex()
+        if current_tab == 0:
+            tab = self.ui.tableWidgetPartners
+            model = PartnerModel.find_all()
+        elif current_tab == 1:
+            tab = self.ui.tableWidgetTerminals
+            model = TerminalModel.find_all()
+        elif current_tab == 2:
+            tab = self.ui.tableWidgetTransactions
+            model = PaymentModel.find_all()
+        else:
+            tab = None
+            model = None
+        if n > len(model):
+            n = len(model) - 1
+        tab.setRowCount(n)
         for i in range(n+1):
-            for j in range(2):
-                row_item = QtWidgets.QTableWidgetItem(str(all_partners[i][j]))
-                self.ui.tableWidget.setItem(i, j, row_item)
+            for j in range(len(model[0])):
+                row_item = QtWidgets.QTableWidgetItem(str(model[i][j]))
+                tab.setItem(i, j, row_item)
 
 

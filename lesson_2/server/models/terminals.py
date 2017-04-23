@@ -28,7 +28,10 @@ class TerminalModel(Base):
 
     @classmethod
     def find_all(cls):
-        return session.query(TerminalModel.id, TerminalModel.title).all()
+        return session.query(TerminalModel.id,
+                             TerminalModel.title,
+                             TerminalModel.configuration,
+                             TerminalModel.comment).all()
 
     @classmethod
     def find_by_title(cls, search_title):

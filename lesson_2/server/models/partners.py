@@ -24,7 +24,9 @@ class PartnerModel(Base):
 
     @classmethod
     def find_all(cls):
-        return session.query(PartnerModel.id, PartnerModel.title).all()
+        return session.query(PartnerModel.id,
+                             PartnerModel.title,
+                             PartnerModel.comment).all()
 
     @classmethod
     def find_by_title(cls, search_title):

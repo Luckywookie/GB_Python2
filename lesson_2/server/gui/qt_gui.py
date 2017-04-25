@@ -18,6 +18,12 @@ class MainWinMy(QtWidgets.QMainWindow):
         self.ui.pushButtonAddTerminal.clicked.connect(lambda: self.add_terminal())
         self.ui.tableWidgetPartners.itemDoubleClicked.connect(lambda item: self.view_change(item))
         # self.ui.tableWidgetPartners.itemEntered.connect(lambda x, y: self.view_enter(x, y))
+        self.ui.pushButtonDeleteRow.clicked.connect(lambda row: self.delete_row(row))
+
+    def delete_row(self, row):
+        c = self.ui.tableWidgetPartners.rowCount()
+        print(c)
+        # PartnerModel.delete_partner(row)
 
     def view_change(self, item):
         row = item.row()

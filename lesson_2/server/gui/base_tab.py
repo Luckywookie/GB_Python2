@@ -8,10 +8,11 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(783, 742)
+        MainWindow.resize(783, 616)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.viewRowsButton = QtWidgets.QPushButton(self.centralwidget)
@@ -131,10 +132,19 @@ class Ui_MainWindow(object):
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 783, 21))
         self.menubar.setObjectName("menubar")
+        self.menuFile = QtWidgets.QMenu(self.menubar)
+        self.menuFile.setObjectName("menuFile")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.actionNew_session = QtWidgets.QAction(MainWindow)
+        self.actionNew_session.setObjectName("actionNew_session")
+        self.actionClose = QtWidgets.QAction(MainWindow)
+        self.actionClose.setObjectName("actionClose")
+        self.menuFile.addAction(self.actionNew_session)
+        self.menuFile.addAction(self.actionClose)
+        self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
         self.tabWidgetAlls.setCurrentIndex(0)
@@ -184,4 +194,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), _translate("MainWindow", "Terminals"))
         self.pushButtonEditRow.setText(_translate("MainWindow", "Edit"))
         self.pushButtonDeleteRow.setText(_translate("MainWindow", "Delete"))
+        self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.actionNew_session.setText(_translate("MainWindow", "New session"))
+        self.actionClose.setText(_translate("MainWindow", "Close"))
 

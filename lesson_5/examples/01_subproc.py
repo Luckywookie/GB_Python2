@@ -24,26 +24,27 @@ print('Файлы для упаковки:', files)
 # Будет создан процесс архиватора. 
 # Для Windows флаг CREATE_NEW_CONSOLE укажет создать новую консоль для процесса
 
-# packer = Popen(['7z','a','test.zip', *files],
-#                 creationflags=CREATE_NEW_CONSOLE)
+packer = Popen(['C:\Program Files\WinRAR\WinRAR.exe', 'a', 'test.rar', *files],
+               creationflags=CREATE_NEW_CONSOLE, shell=True)
+
 # Ждём завершения процесса, чтобы что-то делать дальше...
-# packer.wait()
+packer.wait()
 
 # Можно упростить, т.к. Popen поддерживает менеджер контекста:
-with Popen(['7z','a','test.zip', *files],
-           creationflags=CREATE_NEW_CONSOLE) as packer:
-    print(packer.args)
-    print("Ждём упаковку...")
+# with Popen(['7z', 'a', 'test.zip', *files],
+#            creationflags=CREATE_NEW_CONSOLE) as packer:
+#     print(packer.args)
+#     print("Ждём упаковку...")
 
 print("Файлы упакованы, можно переименовывать")
 
 # Переименовываем файл, созданный архиватором
-os.rename('test.zip', 'kolbasa.zzz')
+# os.rename('test.rar', 'kolbasa.zzz')
 
 
 # В Python 3.5 добавлен упрощенный способ создания процессов - функция run.
 # run запускает процесс, ждёт его завершания, возвращает объект CompletedProcess.
 # subprocess.run(args, *, stdin=None, input=None, stdout=None, stderr=None, 
 #                shell=False, timeout=None, check=False, encoding=None, errors=None)
-py_proc = run(['python', '-V'])
+py_proc = run(['python3', '-V'])
 print(py_proc)

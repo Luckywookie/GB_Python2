@@ -8,12 +8,14 @@ root.title("Многопоточная программа")
 e = Entry(root, width=17)
 e.grid(row=1, column=1, padx=(1, 1))
 
+
 def writer(filename, n):
     s = str(e.get())
     file = open(filename, "w")
     for i in range(n):
         file.write(s + "\n")
         print(i, filename, s)
+
 
 def run():
     print('Ща запустим потоки...')

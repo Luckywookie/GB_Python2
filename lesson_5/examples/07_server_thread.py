@@ -6,6 +6,7 @@ import socket
 import threading
 import socketserver
 
+
 # Создаем класс-обработчик сообщений пользователя
 class ThreadedTCPRequestHandler(socketserver.BaseRequestHandler):
 

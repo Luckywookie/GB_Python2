@@ -9,15 +9,13 @@ import multiprocessing as mp
 
 print('Hello, Process!')
 
+
 # Посмотрите на простую функцию:
 def count(n):
     ''' Данная функция зависит от CPU-вычисления
     '''
     while n > 0:
         n -= 1
-
-
-
 
 if __name__ == '__main__':
 
@@ -30,7 +28,6 @@ if __name__ == '__main__':
     count(100000000)
 
     print('Последовательное выполнение: {} сек.'.format(time.time()-start))
-
 
     # Выполнение в 2-х потоках:
     start = time.time()

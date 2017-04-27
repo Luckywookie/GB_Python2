@@ -133,6 +133,4 @@ btn = Button(main_window, text='View')
 btn.grid(row=1, column=3)   # Отображаем кнопку
 btn.bind('<Button-1>', select_partners)
 
-
-
 mainloop()

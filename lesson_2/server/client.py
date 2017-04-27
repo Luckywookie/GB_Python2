@@ -27,7 +27,7 @@ _id_inkass = 253          # id сотрудника-инкассатора
 _cash = 285332200         # сумма инкассации в копейках
 
 
-p = pack('2s6s6s4s4s4i', b'zz', _date, _time, _type, _command, _id_terminal, _id_tranz, _id_company, _payment)
+p = pack('!2s6s6s4s4s4i', b'zz', _date, _time, _type, _command, _id_terminal, _id_tranz, _id_company, _payment)
 print(p)
 sock.sendall(p)
 recvd = str(sock.recv(1024), 'utf-8')

@@ -7,13 +7,16 @@ from models.terminals import TerminalModel
 from models.balans import CreditModel, DebitModel
 
 # удаление партнеров по id
-PartnerModel.delete_partner(10)
+# PartnerModel.delete_partner(10)
 
+print(PaymentModel.find_all())
 # изменение партнеров по id его title и comments
-PartnerModel.update_partner(4, "My OOO", "Ohoho")
+# PartnerModel.update_partner(4, "My OOO", "Ohoho")
 
-# partner = PartnerModel(title='Ogogo OOO')
-# partner.delete_from_db()
+# partner = PartnerModel(title='My Good Firm OOO', comment='Very looong comment')
+# partner.save_to_db()
+
+print(PartnerModel.find_all())
 
 # print(PartnerModel.find_by_title('Ogogo OOO'))
 

@@ -1,14 +1,18 @@
 import socketserver
+import threading
 from struct import *
 
 
-class TCPHandler(socketserver.BaseRequestHandler):
+class TCPHandlerThread(socketserver.BaseRequestHandler):
 
     def handle(self):
         self.data = self.request.recv(1024)
+        cur_thread = threading.current_thread()
+        response = bytes("{}: {}".format(cur_thread.name, self.data), 'utf-8')
+        self.request.sendall(response)
         print('Клиент {}'.format(self.client_address))
         # Пример строки: zz   0x228b   0xf124  0x00  0x00   \x00\x00@\xe2\x01\x00\x8d\xe3\x01\x00
-        p = unpack('2s6s6s4s4s4i', self.data)
+        p = unpack('!2s6s6s4s4s4i', self.data)
         _date = int(p[1], 16)   # дата
         year = (_date & 0xfe00) >> 9
         month = (_date & 0x1f0) >> 5
@@ -32,16 +36,27 @@ class TCPHandler(socketserver.BaseRequestHandler):
     def finish(self):
         pass
 
+
+# Обратите внимание на использование класса-примеси ThreadingMixIn
+class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    """
+        Потоковый сервер. Достаточно создать класс без "внутренностей"
+    """
+    pass
+
+
 if __name__ == "__main__":
     HOST, PORT = "localhost", 9999
-    # serv = socketserver.TCPServer((HOST, PORT), TCPHandler)
-    # print('Сервер запущен')
-    # serv.serve_forever()
+    server = ThreadedTCPServer((HOST, PORT), TCPHandlerThread)
+    ip, port = server.server_address
+    server_thread = threading.Thread(target=server.serve_forever,
+                                     name='thread.server')
+    # server_thread.daemon = True
     try:
-        serv = socketserver.TCPServer((HOST, PORT), TCPHandler)
-        print("Server started")
-        serv.serve_forever()
+        server_thread.start()
+        print("Сервер запущен в потоке: {} по адресу {}:{}".format(server_thread.name, ip, port))
     except KeyboardInterrupt:  # control-C
+        server.shutdown()
         print("exit")
 
 

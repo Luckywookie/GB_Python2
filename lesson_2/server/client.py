@@ -19,10 +19,10 @@ _date = hex(((now.year - 2000 << 9) | (now.month << 5) | (now.day & 31)) & 0xFFF
 _time = hex((now.hour << 12) | (now.minute << 6) | (now.second & 60)).encode('utf-8')
 _type = '0x01'.encode()
 _command = '0x00'.encode()
-_id_terminal = 123456
+_id_terminal = 5
 _id_tranz = 123789
-_id_company = 2563        # id организации
-_payment = 1526500        # сумма в копейках
+_id_company = 1        # id организации
+_payment = 1500        # сумма в копейках
 _id_inkass = 253          # id сотрудника-инкассатора
 _cash = 285332200         # сумма инкассации в копейках
 

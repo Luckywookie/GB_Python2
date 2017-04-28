@@ -1,6 +1,11 @@
+from db import Base, session
+from datetime import datetime, date
 import socketserver
 import threading
 from struct import *
+from models.payments import PaymentModel
+from models.partners import PartnerModel
+from models.terminals import TerminalModel
 
 
 class TCPHandlerThread(socketserver.BaseRequestHandler):
@@ -30,6 +35,13 @@ class TCPHandlerThread(socketserver.BaseRequestHandler):
             print('Платёжная транзакция')
             pay = int(p[8])/100
             print('Компания: {}, сумма: {} руб'.format(p[7], pay))
+            transaction = PaymentModel(datetm=date(year, month, day),
+                                       terminal_id=int(p[5]),
+                                       transaction_id=int(p[6]),
+                                       partner_id=int(p[7]),
+                                       summ=int(p[8]))
+            transaction.save_to_db()
+            print('Saved to BD')
         elif p[3] == b'0x02':
             print('Инкассация')
 

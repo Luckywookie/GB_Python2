@@ -1,4 +1,4 @@
-from db import Base, session
+from models import session, Base
 from PyQt5 import QtCore, QtGui, QtWidgets
 from .base_tab import Ui_MainWindow
 from models.partners import PartnerModel

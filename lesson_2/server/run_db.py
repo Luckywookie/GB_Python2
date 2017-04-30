@@ -1,4 +1,4 @@
-from db import Base, session
+# from db import Base, session
 from datetime import datetime, date
 
 from models.partners import PartnerModel

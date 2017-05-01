@@ -1,6 +1,8 @@
 import socket
 from datetime import datetime, time
 from struct import pack
+import rsa
+import pickle
 
 
 # timestamp = datetime.today().timestamp()
@@ -27,11 +29,34 @@ _id_inkass = 253          # id сотрудника-инкассатора
 _cash = 285332200         # сумма инкассации в копейках
 
 
-p = pack('!2s6s6s4s4s4i', b'zz', _date, _time, _type, _command, _id_terminal, _id_tranz, _id_company, _payment)
-print(p)
-sock.sendall(p)
-recvd = str(sock.recv(1024), 'utf-8')
+while True:
+    sock.sendall(b'Client: OK')
+    d = sock.recv(1024)
+    if d:
+        pubkey = pickle.loads(d)
+        print(pubkey)
+        data = pack('!2s6s6s4s4s4i', b'zz', _date, _time, _type, _command, _id_terminal, _id_tranz, _id_company, _payment)
+        crypto = rsa.encrypt(data, pubkey)
+        sock.send(crypto)
+    data = sock.recv(1024)
+    if not data:
+        break
+    print(data.decode('utf8'))
 
-print(recvd)
+# sock.sendall(b'Client: OK')
+# pubkey = pickle.loads(sock.recv(1024))
+
+# (pubkey, privkey) = rsa.newkeys(512)
+# print(type(pubkey))
+# # шифруем
+#
+# p = pack('!2s6s6s4s4s4i', b'zz', _date, _time, _type, _command, _id_terminal, _id_tranz, _id_company, _payment)
+# # print(p)
+# crypto = rsa.encrypt(p, pubkey)
+# # print(crypto)
+# sock.sendall(crypto)
+# recvd = str(sock.recv(1024), 'utf-8')
+#
+# print(recvd)
 sock.close()
 

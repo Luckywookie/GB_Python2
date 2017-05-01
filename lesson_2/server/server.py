@@ -6,18 +6,26 @@ from struct import *
 from models.payments import PaymentModel
 from models.partners import PartnerModel
 from models.terminals import TerminalModel
+import rsa
+import pickle
 
 
 class TCPHandlerThread(socketserver.BaseRequestHandler):
 
     def handle(self):
+        (pubkey, privkey) = rsa.newkeys(512)
         self.data = self.request.recv(1024)
+        if self.data.decode() == "Client: OK":
+            self.request.send(pickle.dumps(pubkey))
+            print("Public key sent to client.")
+            self.newdata = self.request.recv(1024)
+            message = rsa.decrypt(self.newdata, privkey)
         cur_thread = threading.current_thread()
         response = bytes("{}: {}".format(cur_thread.name, self.data), 'utf-8')
         self.request.sendall(response)
         print('Клиент {}'.format(self.client_address))
         # Пример строки: zz   0x228b   0xf124  0x00  0x00   \x00\x00@\xe2\x01\x00\x8d\xe3\x01\x00
-        p = unpack('!2s6s6s4s4s4i', self.data)
+        p = unpack('!2s6s6s4s4s4i', message)
         _date = int(p[1], 16)   # дата
         year = (_date & 0xfe00) >> 9
         month = (_date & 0x1f0) >> 5
